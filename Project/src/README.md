@@ -12,12 +12,15 @@ Folder contains files, related to managing clients.
 2. `Helpers`
 
 Folder contains context file.
+
 3. `Migrations`
 
 Folder contains migration files.
+
 4. `Revenue`
 
 Folder contains files, related to managing revenue calculation.
+
 5. `SoftwareSystems`
 
 Folder contains files, related to managing software.
