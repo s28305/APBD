@@ -28,4 +28,10 @@
       <Folder Include="Migrations\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Project.Tests\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Project.Tests\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Project.Tests\obj\Project.Tests.csproj.nuget.dgspec.json" />
+    </ItemGroup>
+
 </Project>

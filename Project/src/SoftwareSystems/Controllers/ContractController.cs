@@ -150,7 +150,6 @@ public class ContractController(RevenueContext context) : ControllerBase
         }
 
         var payment = paymentDto.Map();
-        context.Payments.Add(payment); 
         contract.Payments.Add(payment);
         await context.SaveChangesAsync();
 
@@ -170,6 +169,7 @@ public class ContractController(RevenueContext context) : ControllerBase
             Payment = paymentDto,
             Message = "Contract was fully paid."
         });
+
 
     }
 }

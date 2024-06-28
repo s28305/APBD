@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Project.Helpers;
 using Project.Revenue.Services;
 
@@ -59,7 +58,7 @@ public class ActualRevenueController(RevenueContext context, IRevenueService rev
     {
         try
         {
-            var exchangeRate = await PredictedRevenueController.GetExchangeRate(currency.ToUpper());
+            var exchangeRate = await revenueService.GetExchangeRate(currency.ToUpper());
             var totalRevenuePln = context.Contracts.Where(c => c.IsSigned).Sum(c => c.Price);
             var totalRevenue = totalRevenuePln * exchangeRate;
 
@@ -82,7 +81,7 @@ public class ActualRevenueController(RevenueContext context, IRevenueService rev
         
         try
         {
-            var exchangeRate = await PredictedRevenueController.GetExchangeRate(currency.ToUpper());
+            var exchangeRate = await revenueService.GetExchangeRate(currency.ToUpper());
             var productRevenuePln = context.Contracts
                 .Where(c => c.SoftwareSystemId == softwareSystemId && c.IsSigned)
                 .Sum(c => c.Price);

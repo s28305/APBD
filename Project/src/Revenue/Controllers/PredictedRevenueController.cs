@@ -59,7 +59,7 @@ public class PredictedRevenueController(RevenueContext context, IRevenueService 
     {
         try 
         {
-            var exchangeRate = await GetExchangeRate(currency.ToUpper());
+            var exchangeRate = await revenueService.GetExchangeRate(currency.ToUpper());
             var totalRevenuePln = context.Contracts.Sum(c => c.Price);
             var totalRevenue = totalRevenuePln * exchangeRate;
           
@@ -82,7 +82,7 @@ public class PredictedRevenueController(RevenueContext context, IRevenueService 
         
         try 
         { 
-            var exchangeRate = await GetExchangeRate(currency.ToUpper()); 
+            var exchangeRate = await revenueService.GetExchangeRate(currency.ToUpper()); 
             var productRevenuePln = context.Contracts
                 .Where(c => c.SoftwareSystemId == softwareSystemId)
                 .Sum(c => c.Price);
@@ -94,17 +94,5 @@ public class PredictedRevenueController(RevenueContext context, IRevenueService 
         { 
             return StatusCode(500, $"An error occurred: {ex.Message}");
         }
-    }
-
-    public static async Task<double> GetExchangeRate(string targetCurrency)
-    { 
-        var requestUrl = $"https://api.frankfurter.app/latest?from=PLN&to={targetCurrency}"; 
-        
-        using var client = new HttpClient();
-        var response = await client.GetAsync(requestUrl);
-        response.EnsureSuccessStatusCode();
-        var responseBody = await response.Content.ReadAsStringAsync();
-        var data = JObject.Parse(responseBody);
-        return data["rates"][targetCurrency].Value<double>();
     }
 }
